@@ -5,10 +5,19 @@ spring:
     gateway:
       enabled: true
       routes:
-        - id: baidu
-          uri: http://baidu.com
+        - id: user
+          uri: lb://user-service
           predicates:
-            - Path=/baidu/**
+            - Path=/user-service/**
           filters:
-            - name: AuthInterceptor
             - StripPrefix=1
+    nacos:
+      username: nacos
+      password: nacos
+      server-addr: http://localhost:8848
+      discovery:
+        enabled: true
+        namespace: public
+        group: DEFAULT_GROUP
+  application:
+    name: gateway
